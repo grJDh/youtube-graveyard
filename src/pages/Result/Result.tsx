@@ -10,25 +10,48 @@ import ErrorResponse from "../../components/ErrorResponse/ErrorResponse";
 import NumberInput from "../../components/NumberInput/NumberInput";
 import Dropdown from "../../components/Dropdown/Dropdown";
 
+// time options
+const DATE_OPTIONS = ["month(s)", "year(s)"] as const;
+type TDATE_OPTIONS = (typeof DATE_OPTIONS)[number];
+
+//sorting options
+const SORT_OPTIONS = ["from new to old", "from old to new"] as const;
+type TSORT_OPTIONS = (typeof SORT_OPTIONS)[number];
+
+interface IChannelData {
+  channelID: string;
+  channelThumbnail: string;
+  channelTitle: string;
+  lastVideoDate: string;
+  lastVideoID: string;
+  lastVideoThumbnail: string;
+  lastVideoTitle: string;
+}
+interface IFailedToLoadChannelData {
+  channelID: string;
+  channelThumbnail: string;
+  channelTitle: string;
+}
+
 const Result = () => {
-  const [isFetching, setIsFetching] = useState(true);
-  const [error, setError] = useState(null);
-  const [subsData, setSubsData] = useState([]);
-  const [failedToLoadChannels, setFailedToLoadChannels] = useState([]);
-  const [filteredAndSortedData, setFilteredAndSortedData] = useState([]);
-  const [numberValue, setNumberValue] = useState(6);
-  const [dropdownValue, setDropdownValue] = useState("month(s)");
-  const [isAscending, setIsAscending] = useState("from new to old");
+  const [isFetching, setIsFetching] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+  const [subsData, setSubsData] = useState<IChannelData[]>([]);
+  const [failedToLoadChannels, setFailedToLoadChannels] = useState<IFailedToLoadChannelData[]>([]);
+  const [filteredAndSortedData, setFilteredAndSortedData] = useState<IChannelData[]>([]);
+  const [numberValue, setNumberValue] = useState<number>(6);
+  const [dropdownValue, setDropdownValue] = useState<TDATE_OPTIONS>("month(s)");
+  const [isAscending, setIsAscending] = useState<TSORT_OPTIONS>("from new to old");
 
   const { state } = useLocation();
 
   //https://yt-graveyard-server-grjdh.vercel.app
   //http://localhost:3000
 
-  //sending access_token or channel ID to backend
+  //sending access_token or channel ID to backend and recieving response
   useEffect(() => {
     const getSubsData = async () => {
-      let myHeaders = new Headers();
+      const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
       const serverResponse = await fetch("https://yt-graveyard-server-grjdh.vercel.app", {
@@ -58,20 +81,17 @@ const Result = () => {
   }, [state]);
 
   // filter data based on dropdown value and number value
-  const filterData = async data => {
+  const filterData = async (data: IChannelData[]): Promise<IChannelData[]> => {
     const filteredData = data.filter(element => {
       const uploadDate = DateTime.fromISO(element.lastVideoDate);
-      let difference = {};
-      switch (dropdownValue) {
-        case "week(s)":
-          difference = uploadDate.diffNow("days").toObject();
-          return Math.abs(difference.days) >= numberValue * 7;
-        case "year(s)":
-          difference = uploadDate.diffNow("years").toObject();
-          return Math.abs(difference.years) >= numberValue;
-        default:
-          difference = uploadDate.diffNow("months").toObject();
-          return Math.abs(difference.months) >= numberValue;
+      const difference = uploadDate.diffNow(["months", "years"]).toObject();
+
+      if (dropdownValue === "month(s)") {
+        const roundedDifference = difference.months !== undefined ? Math.abs(difference.months) : 0;
+        return roundedDifference >= numberValue;
+      } else {
+        const roundedDifference = difference.years !== undefined ? Math.abs(difference.years) : 0;
+        return roundedDifference >= numberValue;
       }
     });
 
@@ -79,14 +99,15 @@ const Result = () => {
   };
 
   // sort data based on last video date
-  const sortData = async data => {
+  const sortData = async (data: IChannelData[]): Promise<IChannelData[]> => {
     const sortedData = [...data].sort((a, b) => {
       const aDate = DateTime.fromISO(a.lastVideoDate);
       const bDate = DateTime.fromISO(b.lastVideoDate);
 
       const dateDifference = aDate.diff(bDate, "days").toObject();
 
-      return dateDifference.days;
+      if (dateDifference.days) return dateDifference.days;
+      else return 0;
     });
 
     return sortedData;
@@ -103,13 +124,8 @@ const Result = () => {
     updateData();
   }, [subsData, numberValue, dropdownValue]);
 
-  // time options
-  const dateOptions = ["month(s)", "year(s)"];
-  //sorting options
-  const sortOptions = ["from new to old", "from old to new"];
-
   //show loader while waiting for backend response or show an error if they didn't log in
-  const renderContent = () => {
+  const renderContent = (): JSX.Element => {
     if (!state)
       return <ErrorResponse text="You didn't log in to your Google Account or provided Youtube channel ID!" />;
     if (isFetching) return <Loading text="Walking to graveyard..." />;
@@ -117,7 +133,7 @@ const Result = () => {
     return renderGrid();
   };
 
-  const renderError = () => {
+  const renderError = (): JSX.Element => {
     switch (error) {
       case "subscriberNotFound":
         return <ErrorResponse text="Channel with this channel ID does not exist." />;
@@ -127,7 +143,7 @@ const Result = () => {
         return (
           <ErrorResponse text="Sorry, but we couldn't find your subscriptions. Either you don't have them, or some unknown error has occurred. If the latter, then please try logging in with your Google Account instead." />
         );
-      case "quotaExceeded":
+      case "quotaExceeded": {
         const whenQuotaResets = DateTime.fromObject({ hour: 0, minute: 0, second: 0 }, { zone: "pst" })
           .toLocal()
           .toLocaleString(DateTime.TIME_SIMPLE);
@@ -136,13 +152,14 @@ const Result = () => {
             text={`Sorry, but it looks like we exceeded our API quota. Please try again after ${whenQuotaResets} in your local time.`}
           />
         );
+      }
       default:
         return <ErrorResponse text="Something went wrong. Please try again later." />;
     }
   };
 
   //actual content
-  const renderGrid = () => {
+  const renderGrid = (): JSX.Element => {
     return (
       <main className="result-page">
         <p>Here are YouTube channels that haven't released a video in at least...</p>
@@ -151,19 +168,23 @@ const Result = () => {
             text="Filter by number of..."
             min={1}
             value={numberValue}
-            onChange={e => setNumberValue(e.target.value)}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setNumberValue(event.target.valueAsNumber)}
           />
           <Dropdown
             text="...months or years"
-            onChange={e => setDropdownValue(e.target.value)}
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+              setDropdownValue(event.target.value as TDATE_OPTIONS)
+            }
             value={dropdownValue}
-            options={dateOptions}
+            options={[...DATE_OPTIONS]}
           ></Dropdown>
           <Dropdown
             text="Sort..."
-            onChange={e => setIsAscending(e.target.value)}
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+              setIsAscending(event.target.value as TSORT_OPTIONS)
+            }
             value={isAscending}
-            options={sortOptions}
+            options={[...SORT_OPTIONS]}
           ></Dropdown>
         </div>
         {filteredAndSortedData.length === 0 ? (

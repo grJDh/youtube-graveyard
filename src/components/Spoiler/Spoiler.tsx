@@ -1,6 +1,11 @@
 import "./Spoiler.css";
 
-const Spoiler = ({ children, title }) => {
+interface SpoilerProps {
+  children: React.ReactNode;
+  title: string;
+}
+
+const Spoiler = ({ children, title }: SpoilerProps) => {
   return (
     <details className="spoiler-wrapper">
       <summary className="spoiler-title">{title}</summary>

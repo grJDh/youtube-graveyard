@@ -11,13 +11,13 @@ import channel_id from "../../assets/guide/channel_id.png";
 import "./Manual.css";
 
 const Manual = () => {
-  const [channelID, setChannelID] = useState("");
+  const [channelID, setChannelID] = useState<string>("");
 
   const navigate = useNavigate();
 
-  const handleSetToken = event => setChannelID(event.target.value);
+  const handleSetChannelID = (event: React.ChangeEvent<HTMLInputElement>) => setChannelID(event.target.value);
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     navigate("/result", {
       state: {
@@ -50,7 +50,7 @@ const Manual = () => {
       >
         <Input
           placeholder="UCYourChannelID"
-          onChange={handleSetToken}
+          onChange={handleSetChannelID}
           required
           value={channelID}
           pattern="(UC).*"

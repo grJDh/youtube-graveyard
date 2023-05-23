@@ -9,7 +9,7 @@ import Loading from "../../components/Loading/Loading";
 import "./Start.css";
 
 const Start = () => {
-  const [serverStatus, setServerStatus] = useState(null);
+  const [serverStatus, setServerStatus] = useState<number>(0);
 
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ const Start = () => {
         const response = await fetch("https://yt-graveyard-server-grjdh.vercel.app");
         setServerStatus(response.status);
       } catch (error) {
-        console.log(error);
+        console.error(error);
         setServerStatus(503);
       }
     };
@@ -27,11 +27,11 @@ const Start = () => {
     checkServer();
   }, []);
 
-  const checkServerResponse = () => {
+  const checkServerResponse = (): JSX.Element => {
     switch (serverStatus) {
       case 200:
         return renderContent();
-      case null:
+      case 0:
         return <Loading text="Checking server availability..." />;
       default:
         return (
@@ -53,7 +53,7 @@ const Start = () => {
     scope: "https://www.googleapis.com/auth/youtube.readonly",
   });
 
-  const renderContent = () => {
+  const renderContent = (): JSX.Element => {
     return (
       <main className="start-container">
         <p>See which YouTube channels you are subscribed to are probably dead 💀</p>

@@ -1,6 +1,13 @@
 import "./Dropdown.css";
 
-const Dropdown = ({ text, options, onChange, value }) => {
+interface DropdownProps {
+  text: string;
+  options: string[];
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  value: string;
+}
+
+const Dropdown = ({ text, options, onChange, value }: DropdownProps) => {
   return (
     <label className="dropdown-label">
       <p>{text}</p>

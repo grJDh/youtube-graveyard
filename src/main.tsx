@@ -6,7 +6,7 @@ import App from "./App";
 import Start from "./pages/Start/Start";
 import Manual from "./pages/Manual/Manual";
 import Result from "./pages/Result/Result";
-import Error from "./pages/Error/Error";
+import ErrorPage from "./pages/Error/ErrorPage";
 
 import "./index.css";
 
@@ -14,7 +14,7 @@ const router = createHashRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <Error />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "",

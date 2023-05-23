@@ -1,17 +1,28 @@
 import { DateTime } from "luxon";
 import "./Card.css";
 
+interface CardProps {
+  failed?: boolean;
+  channelID: string;
+  channelThumbnail: string;
+  channelTitle: string;
+  lastVideoID?: string;
+  lastVideoThumbnail?: string;
+  lastVideoTitle?: string;
+  lastVideoDate?: string;
+}
+
 const Card = ({
   failed = false,
   channelID,
   channelThumbnail,
   channelTitle,
-  lastVideoID,
-  lastVideoThumbnail,
-  lastVideoTitle,
-  lastVideoDate,
-}) => {
-  const formatDate = date => {
+  lastVideoID = "",
+  lastVideoThumbnail = "",
+  lastVideoTitle = "",
+  lastVideoDate = "",
+}: CardProps) => {
+  const formatDate = (date: string): string => {
     const uploadDate = DateTime.fromISO(date);
     const difference = uploadDate.diffNow("days").toObject();
 

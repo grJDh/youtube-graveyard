@@ -1,12 +1,22 @@
-import { useRouteError } from "react-router-dom";
+import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 
 import Title from "../../components/Title/Title";
 
-import "./Error.css";
+import "./ErrorPage.css";
 import LinkButton from "../../components/Buttons/LinkButton";
 
-const Error = () => {
+const ErrorPage = () => {
   const error = useRouteError();
+
+  const returnErrorMessage = () => {
+    if (isRouteErrorResponse(error)) return error.statusText;
+
+    if (error instanceof Error) return error.message;
+
+    return "Error unknown";
+  };
+
+  console.error(returnErrorMessage());
 
   return (
     <div className="error-container">
@@ -15,7 +25,7 @@ const Error = () => {
         coffin
       />
       <main className="error-text">
-        <p className="error">Error: {error.statusText || error.message}</p>
+        <p className="error">Error: {returnErrorMessage()}</p>
         <LinkButton
           main
           reload
@@ -27,4 +37,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default ErrorPage;

@@ -1,6 +1,16 @@
 import "./Input.css";
 
-const Input = ({ text, placeholder, onChange, required = false, value, pattern, help }) => {
+interface InputProps {
+  text: string;
+  placeholder: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  value: string;
+  pattern: string;
+  help: string;
+}
+
+const Input = ({ text, placeholder, onChange, required = false, value, pattern, help }: InputProps) => {
   return (
     <label className="text-input-label">
       <p>{text}</p>

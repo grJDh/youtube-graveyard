@@ -5,7 +5,12 @@ import coffin_error from "../../assets/coffin_error.svg";
 
 import "./Title.css";
 
-const Title = ({ text = "YouTube Graveyard", coffin = false }) => {
+interface TitleProps {
+  text?: string;
+  coffin?: boolean;
+}
+
+const Title = ({ text = "YouTube Graveyard", coffin = false }: TitleProps) => {
   return (
     <header className="title">
       <Link

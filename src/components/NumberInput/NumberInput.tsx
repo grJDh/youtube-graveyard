@@ -1,6 +1,13 @@
 import "./NumberInput.css";
 
-const NumberInput = ({ text, min, value, onChange }) => {
+interface NumberInputProps {
+  text: string;
+  min: number;
+  value: number;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const NumberInput = ({ text, min, value, onChange }: NumberInputProps) => {
   return (
     <label className="number-input-label">
       <p>{text}</p>

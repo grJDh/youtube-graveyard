@@ -2,7 +2,11 @@ import LinkButton from "../Buttons/LinkButton";
 
 import "./ErrorResponse.css";
 
-const ErrorResponse = ({ text }) => {
+interface ErrorResponseProps {
+  text: string;
+}
+
+const ErrorResponse = ({ text }: ErrorResponseProps) => {
   return (
     <main className="error-response-container">
       <p>{text}</p>
