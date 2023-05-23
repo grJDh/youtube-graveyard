@@ -1,0 +1,54 @@
+.spoiler-wrapper {
+  width: 100%;
+}
+
+.spoiler-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  list-style: none;
+  color: var(--clr-text);
+  font-size: 1.5rem;
+}
+
+.spoiler-title::before {
+  content: "?";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--clr-text);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  color: var(--clr-text);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.spoiler-title:hover,
+.spoiler-title:hover::before {
+  border-color: var(--clr-highlight);
+  color: var(--clr-highlight);
+}
+
+.spoiler-wrapper[open] .spoiler-title::before {
+  color: var(--clr-highlight);
+  border-color: var(--clr-highlight);
+}
+
+.spoiler-wrapper .spoiler-content p {
+  text-align: left;
+}
+
+.spoiler-content {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+
+  border: 1px solid white;
+  border-radius: 3px;
+  padding: 1rem;
+}

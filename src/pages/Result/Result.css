@@ -1,0 +1,42 @@
+.result-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+@media (min-width: 500px) {
+  .result-page {
+    padding: 1rem;
+  }
+}
+
+.result-page p {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.cards-grid {
+  width: 100%;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  justify-items: center;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.result-page .no-results {
+  font-size: 4rem;
+}

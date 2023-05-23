@@ -1,0 +1,32 @@
+.button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--border-radius);
+  height: 4rem;
+  font-size: 1.5rem;
+  padding: 1.2rem;
+  color: var(--clr-main-light);
+  text-align: center;
+}
+
+.main-button {
+  background-color: var(--clr-main-light);
+  color: black;
+}
+
+.button:hover {
+  background-color: var(--clr-main-dark-hover);
+}
+.main-button:hover {
+  background-color: var(--clr-main-light-hover);
+}
+
+.button:active {
+  background-color: var(--clr-main-dark-active);
+}
+.main-button:active {
+  background-color: var(--clr-main-light-active);
+}

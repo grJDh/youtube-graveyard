@@ -1,0 +1,15 @@
+.number-input-label input[type="number"] {
+  border: 1px solid var(--clr-border);
+  color: var(--clr-main-light);
+  width: 100%;
+  max-width: 5rem;
+  height: 2rem;
+  background-color: transparent;
+  border-radius: var(--border-radius);
+  font-size: 1.5rem;
+  padding-left: 1rem;
+}
+
+.number-input-label p {
+  font-size: 0;
+}

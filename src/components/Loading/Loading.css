@@ -1,0 +1,44 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+  height: 100%;
+}
+
+.loading-container p {
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.loading-anim {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+}
+
+.coffin {
+  animation: jump 1s ease-in infinite;
+}
+.coffin:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.coffin:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.loading-anim img:last-child {
+  position: absolute;
+  bottom: 1px;
+}
+
+@keyframes jump {
+  0%,
+  50% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-50px);
+  }
+}

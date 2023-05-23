@@ -1,0 +1,30 @@
+:root {
+  --auth-color: rgba(255, 0, 0, 0.5);
+  --username-color: rgba(0, 0, 255, 0.5);
+  --auth-color-hover: rgba(255, 0, 0, 1);
+  --username-color-hover: rgba(0, 0, 255, 1);
+
+  --gradient-percent: 50%;
+}
+
+.start-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+
+  padding: 1rem;
+
+  /* justify-content: center;
+  transform: translateY(var(--center-offest)); */
+}
+
+.start-container p {
+  text-align: center;
+  font-size: 1.8rem;
+  /* max-width: 50%; */
+  margin-bottom: 2rem;
+}

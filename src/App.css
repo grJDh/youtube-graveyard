@@ -1,0 +1,81 @@
+:root {
+  /* ----------colors---------- */
+
+  /* main colors */
+  --clr-background: #222222;
+
+  --clr-main-dark: #343438;
+  --clr-main-dark-hover: #434343;
+  --clr-main-dark-hover-light: #57575e;
+  --clr-main-dark-active: #323232;
+
+  --clr-main-light: #d9d9d9;
+  --clr-main-light-hover: white;
+  --clr-main-light-active: #bfbfbf;
+
+  --clr-border: #d9d9d9;
+
+  --clr-black-alpha: rgba(0, 0, 0, 0.7);
+
+  /* text */
+  --clr-text: white;
+  --clr-text-dark: #f4f4f499;
+
+  --clr-highlight: #e3ff39;
+  --clr-highlight-active: #cfa417;
+
+  /* ----------fonts---------- */
+  --text-channel-title: 1.5rem;
+  --text-video-title: 1rem;
+
+  /* ----------misc---------- */
+  --border-radius: 3px;
+
+  --center-offest: -90px;
+}
+
+html,
+body,
+.App {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+html {
+  background-color: var(--clr-background);
+}
+
+h1,
+h2,
+h3,
+p,
+a,
+summary,
+button,
+select,
+input {
+  color: var(--clr-text);
+  font-family: "Roboto", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.App {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+
+  padding-bottom: 1rem;
+
+  gap: 2rem;
+}
+
+.text-overflow {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,22 @@
+.text-input-label {
+  width: 100%;
+}
+
+input[type="text"] {
+  background-color: transparent;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--clr-border);
+
+  width: 100%;
+  min-width: 19rem;
+  height: 5rem;
+  padding: 1.5rem;
+
+  font-size: 1.8rem;
+
+  color: white;
+}
+
+input[type="text"]::placeholder {
+  color: var(--clr-text-dark);
+}
