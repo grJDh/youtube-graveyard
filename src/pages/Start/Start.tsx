@@ -56,7 +56,7 @@ const Start = () => {
   const renderContent = (): JSX.Element => {
     return (
       <main className="start-container">
-        <p>See which YouTube channels you are subscribed to are probably dead 💀</p>
+        <p>See which YouTube channels you are subscribed to are probably "dead" 💀</p>
         <Button
           text="Continue with Google Account"
           main
