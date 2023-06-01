@@ -1,0 +1,20 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`#App > renders App 1`] = `
+<header
+  class="title"
+>
+  <a
+    aria-label="Return to the Start"
+    href="/"
+  >
+    <img
+      alt="Logo"
+      src="/youtube-graveyard/src/assets/grave_main.svg"
+    />
+    <h1>
+      YouTube Graveyard
+    </h1>
+  </a>
+</header>
+`;

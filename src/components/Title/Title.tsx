@@ -16,7 +16,7 @@ const Title = ({ text = "YouTube Graveyard", coffin = false }: TitleProps) => {
       <Link
         to="/"
         reloadDocument
-        aria-label="Return to the Start page"
+        aria-label="Return to the Start"
       >
         <img
           src={coffin ? coffin_error : grave_main}
