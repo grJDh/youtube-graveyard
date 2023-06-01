@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`#App > renders App 1`] = `
+exports[`#Title > matches snapshot 1`] = `
 <header
   class="title"
 >
